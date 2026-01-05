@@ -5,15 +5,20 @@ import { parsePrompt } from './llm';
 function App() {
   const [widgets, setWidgets] = useState([]);
   const [input, setInput] = useState('');
+  const [hfToken, setHfToken] = useState('');
   const [processing, setProcessing] = useState(false);
 
   const handleCreate = async () => {
     if (!input.trim()) return;
+    if (!hfToken.trim()) {
+        alert("Please enter your Hugging Face Access Token first.");
+        return;
+    }
     setProcessing(true);
     try {
         // 1. Send prompt to LLM to get widget config
         console.log("Processing prompt:", input);
-        const config = await parsePrompt(input);
+        const config = await parsePrompt(input, hfToken);
 
         console.log("Received config:", config);
 
@@ -35,6 +40,21 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <h1 className="text-3xl font-bold mb-8 text-center text-blue-600">AI Task Dashboard</h1>
+
+      {/* Token Input */}
+      <div className="max-w-2xl mx-auto mb-4">
+          <label className="block text-sm font-medium text-gray-700 mb-1">Hugging Face Access Token (Required for FunctionGemma)</label>
+          <input
+            type="password"
+            value={hfToken}
+            onChange={(e) => setHfToken(e.target.value)}
+            placeholder="hf_..."
+            className="w-full p-2 border rounded shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+          <p className="text-xs text-gray-500 mt-1">
+              You must accept the license for <code>google/functiongemma-270m-it</code> on Hugging Face.
+          </p>
+      </div>
 
       {/* Input Section */}
       <div className="max-w-2xl mx-auto mb-10 flex gap-4">

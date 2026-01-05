@@ -64,8 +64,9 @@ Open your browser at `http://localhost:5173`.
 
 ## Usage
 
-1. **Wait for Model Load:** On the first load, the browser will download the LLM weights (approx. 300MB - 1GB depending on the model). Check the console for "Model loaded!"
-2. **Enter a Prompt:** In the input box, type a request.
+1. **Enter HF Token:** You must provide a Hugging Face Access Token to access the gated `google/functiongemma-270m-it` model. Ensure you have accepted the license on the Hugging Face model page.
+2. **Wait for Model Load:** On the first request, the browser will download the LLM weights (approx. 300MB). Check the console for "Model loaded!"
+3. **Enter a Prompt:** In the input box, type a request.
    - *Examples:*
      - "Show me a table of high priority tasks"
      - "I want a pie chart of tasks by status"
